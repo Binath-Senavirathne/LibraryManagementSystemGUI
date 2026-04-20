@@ -2,24 +2,35 @@ package lms;
 
 public class Student {
 
-    private int studentID;
+    private String studentID;
     private String firstName;
 
-    public Student(int studentID, String firstName) {
+    public Student() {
+    }
+
+    public Student(String studentID, String firstName) {
         this.studentID = studentID;
         this.firstName = firstName;
     }
 
-    public int getStudentID() {
+    public String getStudentID() {
         return studentID;
+    }
+
+    public void setStudentID(String studentID) {
+        this.studentID = studentID;
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public String toCsv(){
-        return studentID + " " + firstName + " ";
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String toCsv() {
+        return studentID + "," + firstName;
     }
 
     @Override

@@ -10,6 +10,9 @@ public class Book {
     private int availability;
     private double price;
 
+    public Book() {
+    }
+
     public Book(String bookId, String title, String isbn, String author, int copies, int availability, double price) {
         this.bookId = bookId;
         this.title = title;
@@ -24,32 +27,56 @@ public class Book {
         return bookId;
     }
 
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
+    }
+
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getIsbn() {
         return isbn;
     }
 
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
     public String getAuthor() {
         return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public int getCopies() {
         return copies;
     }
 
+    public void setCopies(int copies) {
+        this.copies = copies;
+    }
+
     public int getAvailability() {
         return availability;
+    }
+
+    public void setAvailability(int availability) {
+        this.availability = availability;
     }
 
     public double getPrice() {
         return price;
     }
 
-    public void setAvailability(int availability) {
-        this.availability = availability;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public String toCsv() {
@@ -62,4 +89,3 @@ public class Book {
                 bookId, title, isbn, author, copies, availability, price);
     }
 }
-
