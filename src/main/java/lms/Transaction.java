@@ -14,10 +14,21 @@ public class Transaction {
         this.type = type;
     }
 
-    public String getDate() { return date; }
-    public String getBookId() { return bookId; }
-    public String getStudentId() { return studentId; }
-    public int getType() { return type; }
+    public String getDate() {
+        return date;
+    }
+
+    public String getBookId() {
+        return bookId;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public int getType() {
+        return type;
+    }
 
     public String toCsv() {
         return date + "," + bookId + "," + studentId + "," + type;
