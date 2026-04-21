@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SearchBooksController">
+<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SearchBooksController">
    <children>
       <Label layoutX="319.0" layoutY="47.0" text="Search Books" textFill="#170886">
          <font>
@@ -35,31 +34,31 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <TextField prefHeight="36.0" prefWidth="165.0" />
-            <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="58.0" text="Search">
+            <TextField id="searchTextField" prefHeight="36.0" prefWidth="165.0" />
+            <Button id="searchButton" mnemonicParsing="false" prefHeight="39.0" prefWidth="58.0" text="Search">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" text="Clear">
+            <Button id="clearButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" text="Clear">
                <HBox.margin>
                   <Insets left="20.0" right="20.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="66.0" text="Export">
+            <Button id="exportButton" mnemonicParsing="false" prefHeight="38.0" prefWidth="66.0" text="Export">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>
             </Button>
          </children>
       </HBox>
-      <TableView layoutX="43.0" layoutY="204.0" prefHeight="278.0" prefWidth="718.0">
+      <TableView id="searchResultsTableView" layoutX="43.0" layoutY="204.0" prefHeight="278.0" prefWidth="718.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Book_ID" />
-          <TableColumn prefWidth="225.60003662109375" text="Name" />
-            <TableColumn prefWidth="160.79998779296875" text="Author" />
-            <TableColumn prefWidth="147.99993896484375" text="ISBN " />
-            <TableColumn prefWidth="109.5999755859375" text="Availability Count" />
+          <TableColumn id="bookIdColumn" prefWidth="75.0" text="Book_ID" />
+          <TableColumn id="titleColumn" prefWidth="225.60003662109375" text="Name" />
+            <TableColumn id="authorColumn" prefWidth="160.79998779296875" text="Author" />
+            <TableColumn id="isbnColumn" prefWidth="147.99993896484375" text="ISBN " />
+            <TableColumn id="availabilityColumn" prefWidth="109.5999755859375" text="Availability Count" />
         </columns>
       </TableView>
    </children>

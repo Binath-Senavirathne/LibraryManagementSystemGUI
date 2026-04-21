@@ -11,7 +11,7 @@ public class Validator {
         return id != null && id.matches("\\d{8}");
     }
 
-    public static boolean isValidName(String name){
+    public static boolean isValidName(String name) {
         return name != null && name.matches("[a-zA-Z]+");
     }
 
@@ -19,7 +19,7 @@ public class Validator {
         return id != null && id.matches("^[A-Z]{2}\\d{2}$");
     }
 
-    public static boolean isValidBookTitle(String title){
+    public static boolean isValidBookTitle(String title) {
         return title != null && title.matches("[a-zA-Z]+");
     }
 
