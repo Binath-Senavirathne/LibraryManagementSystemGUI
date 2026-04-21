@@ -134,14 +134,11 @@ public class SearchBooksController {
             try {
                 StringBuilder content = new StringBuilder();
                 content.append("BOOK SEARCH RESULTS\n");
-                content.append("==================\n");
                 content.append("Search Term: ").append(searchTextField.getText()).append("\n");
                 content.append("Total Results: ").append(tableData.size()).append("\n");
-                content.append("==================\n\n");
 
                 content.append(String.format("%-10s %-25s %-20s %-15s %-10s\n",
                         "Book_ID", "Title", "Author", "ISBN", "Available"));
-                content.append("=".repeat(90)).append("\n");
 
                 for (Book book : tableData) {
                     content.append(String.format("%-10s %-25s %-20s %-15s %-10d\n",

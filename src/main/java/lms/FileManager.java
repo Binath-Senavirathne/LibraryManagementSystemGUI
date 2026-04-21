@@ -6,7 +6,12 @@ import java.util.*;
 
 public class FileManager {
 
-    private static final String DATA_FOLDER = "../data/";
+    private static final String DATA_FOLDER = System.getProperty("user.dir") + java.io.File.separator + "data" + java.io.File.separator;
+
+    private static void ensureDataDir() {
+        java.io.File dir = new java.io.File(DATA_FOLDER);
+        if (!dir.exists()) dir.mkdirs();
+    }
 
     public static List<Book> loadBooks(String fileName) {
         List<Book> books = new ArrayList<>();
@@ -97,6 +102,7 @@ public class FileManager {
     }
 
     public static void saveBooks(String fileName, List<Book> books) {
+        ensureDataDir();
         Path path = Paths.get(DATA_FOLDER + fileName);
         try (PrintWriter pw = new PrintWriter(new FileWriter(path.toFile()))) {
             for (Book b : books) pw.println(b.toCsv());
@@ -106,6 +112,7 @@ public class FileManager {
     }
 
     public static void saveStudents(String fileName, List<Student> students) {
+        ensureDataDir();
         Path path = Paths.get(DATA_FOLDER + fileName);
         try (PrintWriter pw = new PrintWriter(new FileWriter(path.toFile()))) {
             for (Student s : students) pw.println(s.toCsv());
@@ -115,6 +122,7 @@ public class FileManager {
     }
 
     public static void saveTransactions(String fileName, List<Transaction> transactions) {
+        ensureDataDir();
         Path path = Paths.get(DATA_FOLDER + fileName);
         try (PrintWriter pw = new PrintWriter(new FileWriter(path.toFile()))) {
             for (Transaction t : transactions) pw.println(t.toCsv());

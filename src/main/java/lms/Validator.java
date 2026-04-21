@@ -20,7 +20,7 @@ public class Validator {
     }
 
     public static boolean isValidBookTitle(String title) {
-        return title != null && title.matches("[a-zA-Z]+");
+        return title != null && !title.isBlank() && title.matches("[a-zA-Z][a-zA-Z\\s'\\-]*");
     }
 
     public static boolean isValidISBN(String isbn) {

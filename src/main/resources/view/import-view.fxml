@@ -12,7 +12,7 @@
             <Font name="Arial Rounded MT Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="36.0" layoutY="67.0" text="Rows with reeors are shown in Red">
+      <Label layoutX="36.0" layoutY="67.0" text="Rows with errors are shown as validation warnings">
          <font>
             <Font size="13.0" />
          </font>
@@ -22,7 +22,8 @@
             <Button fx:id="btnLoadCsv" mnemonicParsing="false" style="-fx-background-color: #0f1a99;" text="Load CSV Files" textFill="WHITE">
                <font>
                   <Font size="13.0" />
-               </font></Button>
+               </font>
+            </Button>
             <Button fx:id="btnConfirm" mnemonicParsing="false" style="-fx-background-color: #58a944;" text="Confirm and Save to Memory" textFill="WHITE">
                <HBox.margin>
                   <Insets left="40.0" />

@@ -27,8 +27,8 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <TextField id="dateTextField" prefHeight="34.0" prefWidth="190.0" text="eg : 27/04/2026" />
-            <Button id="generateReportButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="124.0" style="-fx-background-color: #0f1a99;" text="Generate Report" textFill="WHITE">
+            <TextField fx:id="dateTextField" prefHeight="34.0" prefWidth="190.0" promptText="eg : 27/04/2026" />
+            <Button fx:id="generateReportButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="124.0" style="-fx-background-color: #0f1a99;" text="Generate Report" textFill="WHITE">
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin>
@@ -36,7 +36,7 @@
                   <Font size="13.0" />
                </font>
             </Button>
-            <Button id="clearButton" mnemonicParsing="false" prefHeight="34.0" prefWidth="62.0" style="-fx-background-color: #999696;" text="Clear" textFill="WHITE">
+            <Button fx:id="clearButton" mnemonicParsing="false" prefHeight="34.0" prefWidth="62.0" style="-fx-background-color: #999696;" text="Clear" textFill="WHITE">
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin>
@@ -46,11 +46,11 @@
             </Button>
          </children>
       </HBox>
-      <TableView id="reportTableView" layoutX="51.0" layoutY="157.0" prefHeight="302.0" prefWidth="691.0">
+      <TableView fx:id="reportTableView" layoutX="51.0" layoutY="157.0" prefHeight="302.0" prefWidth="691.0">
         <columns>
-          <TableColumn id="dateColumn" prefWidth="175.2000732421875" text="Date" />
-          <TableColumn id="bookIdColumn" prefWidth="171.199951171875" text="Book_ID" />
-            <TableColumn id="studentIdColumn" prefWidth="163.20001220703125" text="Student_ID" />
+          <TableColumn fx:id="dateColumn" prefWidth="175.2000732421875" text="Date" />
+          <TableColumn fx:id="bookIdColumn" prefWidth="171.199951171875" text="Book_ID" />
+            <TableColumn fx:id="studentIdColumn" prefWidth="163.20001220703125" text="Student_ID" />
         </columns>
       </TableView>
    </children>
