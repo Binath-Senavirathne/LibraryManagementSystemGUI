@@ -54,7 +54,7 @@ public class SearchBooksController {
 
     @FXML
     public void initialize() {
-        allBooks = FileManager.loadBooks("books.csv");
+        allBooks = FileManager.loadBooks("book.csv");
 
         bookIdColumn.setCellValueFactory(new PropertyValueFactory<>("bookId"));
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));

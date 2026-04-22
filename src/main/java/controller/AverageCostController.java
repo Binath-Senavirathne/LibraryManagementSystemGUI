@@ -21,8 +21,6 @@ public class AverageCostController {
 
     @FXML private Button btnCalculate;
 
-    @FXML private TableView<Book> booksTableView;
-
     @FXML
     public void initialize() {
         btnCalculate.setOnAction(e -> handleCalculate());
@@ -30,28 +28,28 @@ public class AverageCostController {
 
     @FXML
     private void handleCalculate() {
-        List<Book> books = FileManager.loadBooks("books.csv");
+        List<Book> books = FileManager.loadBooks("book.csv");
 
         if (books.isEmpty()) {
-            showAlert("No Data", "No books found in books.csv. Please import book data first.");
+            showAlert("No Data", "No books found in book.csv. Load the Data file");
             lblTotalBooks.setText("0");
             lblTotalPrice.setText("0.00");
             lblAverageCost.setText("N/A");
             return;
         }
 
-        int totalBooks = books.size();
+        int totalCopies = 0;
         double totalPrice = 0;
         for (Book b : books) {
-            totalPrice += b.getPrice();
+            totalCopies += b.getCopies();
+            totalPrice += (b.getPrice() * b.getCopies());
         }
-        double averageCost = totalPrice / totalBooks;
+        
+        double averageCost = totalCopies > 0 ? totalPrice / totalCopies : 0.0;
 
-        lblTotalBooks.setText(String.valueOf(totalBooks));
+        lblTotalBooks.setText(String.valueOf(totalCopies));
         lblTotalPrice.setText(String.format("%.2f", totalPrice));
         lblAverageCost.setText(String.format("%.2f", averageCost));
-
-        booksTableView.setItems(FXCollections.observableArrayList(books));
     }
 
     private void showAlert(String title, String message) {

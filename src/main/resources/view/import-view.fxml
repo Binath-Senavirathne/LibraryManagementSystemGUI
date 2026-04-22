@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ImportController">
+<AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ImportController">
    <children>
-      <Label layoutX="326.0" layoutY="24.0" text="Import CSV Files" textFill="#12158e">
+      <Label layoutX="424.0" layoutY="24.0" text="Import CSV Files" textFill="#12158e">
          <font>
             <Font name="Arial Rounded MT Bold" size="18.0" />
          </font>
@@ -17,7 +17,7 @@
             <Font size="13.0" />
          </font>
       </Label>
-      <HBox layoutX="36.0" layoutY="92.0" prefHeight="26.0" prefWidth="721.0">
+      <HBox layoutX="36.0" layoutY="92.0" prefHeight="26.0" prefWidth="922.0">
          <children>
             <Button fx:id="btnLoadCsv" mnemonicParsing="false" style="-fx-background-color: #0f1a99;" text="Load CSV Files" textFill="WHITE">
                <font>
@@ -35,21 +35,23 @@
          </children>
       </HBox>
       <Label layoutX="36.0" layoutY="130.0" />
-      <TabPane fx:id="tabPane" layoutX="36.0" layoutY="139.0" prefHeight="343.0" prefWidth="722.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPane" layoutX="36.0" layoutY="139.0" prefHeight="343.0" prefWidth="922.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="tabBooks" text="Books">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="tvBooks" prefHeight="315.0" prefWidth="722.0">
+                        <TableView fx:id="tvBooks" prefHeight="315.0" prefWidth="922.0">
                           <columns>
-                            <TableColumn fx:id="colBookId" prefWidth="75.0" text="book_id" />
-                            <TableColumn fx:id="colTitle" prefWidth="120.0" text="title" />
-                            <TableColumn fx:id="colIsbn13" prefWidth="120.0" text="isbn13" />
-                            <TableColumn fx:id="colAuthor" prefWidth="120.0" text="author" />
-                            <TableColumn fx:id="colCopies" prefWidth="70.0" text="copies" />
-                            <TableColumn fx:id="colAvailability" prefWidth="70.0" text="availability" />
-                            <TableColumn fx:id="colPrice" prefWidth="70.0" text="price" />
+                            <TableColumn fx:id="colBookId" prefWidth="60.0" text="book_id" />
+                            <TableColumn fx:id="colTitle" prefWidth="100.0" text="title" />
+                            <TableColumn fx:id="colIsbn13" prefWidth="100.0" text="isbn13" />
+                            <TableColumn fx:id="colAuthor" prefWidth="100.0" text="author" />
+                            <TableColumn fx:id="colCopies" prefWidth="50.0" text="copies" />
+                            <TableColumn fx:id="colAvailability" prefWidth="80.00003051757812" text="availability" />
+                            <TableColumn fx:id="colPrice" prefWidth="30.39996337890625" text="price" />
+                            <TableColumn fx:id="colBookError" prefWidth="300.0" text="Error Details" />
+                            <TableColumn fx:id="colBookAction" prefWidth="80.0" text="Action" />
                           </columns>
                         </TableView>
                      </children>
@@ -60,10 +62,12 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="tvStudents" prefHeight="316.0" prefWidth="722.0">
+                        <TableView fx:id="tvStudents" prefHeight="316.0" prefWidth="922.0">
                           <columns>
-                            <TableColumn fx:id="colStudentId" prefWidth="150.0" text="student_id" />
-                            <TableColumn fx:id="colFirstName" prefWidth="250.0" text="first_name" />
+                            <TableColumn fx:id="colStudentId" prefWidth="100.0" text="student_id" />
+                            <TableColumn fx:id="colFirstName" prefWidth="150.0" text="first_name" />
+                            <TableColumn fx:id="colStudentError" prefWidth="400.0" text="Error Details" />
+                            <TableColumn fx:id="colStudentAction" prefWidth="80.0" text="Action" />
                           </columns>
                         </TableView>
                      </children>
@@ -74,12 +78,14 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="tvTransactions" prefHeight="317.0" prefWidth="722.0">
+                        <TableView fx:id="tvTransactions" prefHeight="317.0" prefWidth="922.0">
                           <columns>
-                            <TableColumn fx:id="colDate" prefWidth="120.0" text="date" />
-                            <TableColumn fx:id="colTransBookId" prefWidth="120.0" text="book_id" />
-                            <TableColumn fx:id="colTransStudentId" prefWidth="120.0" text="student_id" />
-                            <TableColumn fx:id="colType" prefWidth="100.0" text="type" />
+                            <TableColumn fx:id="colDate" prefWidth="80.0" text="date" />
+                            <TableColumn fx:id="colTransBookId" prefWidth="80.0" text="book_id" />
+                            <TableColumn fx:id="colTransStudentId" prefWidth="100.0" text="student_id" />
+                            <TableColumn fx:id="colType" prefWidth="50.0" text="type" />
+                            <TableColumn fx:id="colTransError" prefWidth="400.0" text="Error Details" />
+                            <TableColumn fx:id="colTransAction" prefWidth="80.0" text="Action" />
                           </columns>
                         </TableView>
                      </children>

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
     <top>
-        <AnchorPane>
-            <Label text="Java Library Viewer" />
-            <Label layoutX="318.0" layoutY="-1.0" prefHeight="18.0" prefWidth="164.0" text="Library Management System" />
+        <AnchorPane style="-fx-background-color: #3f73c1;">
+            <Label layoutX="384.0" layoutY="-1.0" prefHeight="29.0" prefWidth="232.0" text="Library Management System" textFill="WHITE">
+            <font>
+               <Font size="18.0" />
+            </font></Label>
         </AnchorPane>
     </top>
     <center>
-        <TabPane prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
+        <TabPane prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE">
             <Tab text="Import Data">
                 <fx:include source="import-view.fxml" />
             </Tab>

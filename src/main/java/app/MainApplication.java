@@ -10,7 +10,7 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/main-menu.fxml"));
-        Scene scene = new Scene(loader.load(), 800, 500);
+        Scene scene = new Scene(loader.load(), 1000, 600);
         primaryStage.setTitle("Java Library Viewer");
         primaryStage.setScene(scene);
         primaryStage.setResizable(true);

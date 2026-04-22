@@ -1,25 +1,20 @@
 package controller;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.FileChooser;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
+import javafx.geometry.Insets;
 import lms.Book;
+import lms.DataStore;
 import lms.FileManager;
 import lms.Student;
 import lms.Transaction;
 import lms.Validator;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ImportController {
 
@@ -31,80 +26,160 @@ public class ImportController {
     @FXML private Button btnLoadCsv;
     @FXML private Button btnConfirm;
 
-    @FXML private TableView<Book>          tvBooks;
-    @FXML private TableColumn<Book, String>  colBookId;
-    @FXML private TableColumn<Book, String>  colTitle;
-    @FXML private TableColumn<Book, String>  colIsbn13;
-    @FXML private TableColumn<Book, String>  colAuthor;
-    @FXML private TableColumn<Book, Integer> colCopies;
-    @FXML private TableColumn<Book, Integer> colAvailability;
-    @FXML private TableColumn<Book, Double>  colPrice;
+    @FXML private TableView<DataStore> tvBooks;
+    @FXML private TableColumn<DataStore, String> colBookId;
+    @FXML private TableColumn<DataStore, String> colTitle;
+    @FXML private TableColumn<DataStore, String> colIsbn13;
+    @FXML private TableColumn<DataStore, String> colAuthor;
+    @FXML private TableColumn<DataStore, String> colCopies;
+    @FXML private TableColumn<DataStore, String> colAvailability;
+    @FXML private TableColumn<DataStore, String> colPrice;
+    @FXML private TableColumn<DataStore, String> colBookError;
+    @FXML private TableColumn<DataStore, Void> colBookAction;
 
-    @FXML private TableView<Student>          tvStudents;
-    @FXML private TableColumn<Student, String> colStudentId;
-    @FXML private TableColumn<Student, String> colFirstName;
-    @FXML private TableView<Transaction>          tvTransactions;
-    @FXML private TableColumn<Transaction, String>  colDate;
-    @FXML private TableColumn<Transaction, String>  colTransBookId;
-    @FXML private TableColumn<Transaction, String>  colTransStudentId;
-    @FXML private TableColumn<Transaction, Integer> colType;
+    @FXML private TableView<DataStore> tvStudents;
+    @FXML private TableColumn<DataStore, String> colStudentId;
+    @FXML private TableColumn<DataStore, String> colFirstName;
+    @FXML private TableColumn<DataStore, String> colStudentError;
+    @FXML private TableColumn<DataStore, Void> colStudentAction;
 
-    private List<Book>        loadedBooks        = new ArrayList<>();
-    private List<Student>     loadedStudents     = new ArrayList<>();
-    private List<Transaction> loadedTransactions = new ArrayList<>();
+    @FXML private TableView<DataStore> tvTransactions;
+    @FXML private TableColumn<DataStore, String> colDate;
+    @FXML private TableColumn<DataStore, String> colTransBookId;
+    @FXML private TableColumn<DataStore, String> colTransStudentId;
+    @FXML private TableColumn<DataStore, String> colType;
+    @FXML private TableColumn<DataStore, String> colTransError;
+    @FXML private TableColumn<DataStore, Void> colTransAction;
+
+    private List<DataStore> loadedBooks = new ArrayList<>();
+    private List<DataStore> loadedStudents = new ArrayList<>();
+    private List<DataStore> loadedTransactions = new ArrayList<>();
 
     @FXML
     public void initialize() {
-        colBookId.setCellValueFactory(new PropertyValueFactory<>("bookId"));
-        colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
-        colIsbn13.setCellValueFactory(new PropertyValueFactory<>("isbn"));
-        colAuthor.setCellValueFactory(new PropertyValueFactory<>("author"));
-        colCopies.setCellValueFactory(new PropertyValueFactory<>("copies"));
-        colAvailability.setCellValueFactory(new PropertyValueFactory<>("availability"));
-        colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-
-        colStudentId.setCellValueFactory(new PropertyValueFactory<>("studentID"));
-        colFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-
-        colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-        colTransBookId.setCellValueFactory(new PropertyValueFactory<>("bookId"));
-        colTransStudentId.setCellValueFactory(new PropertyValueFactory<>("studentId"));
-        colType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        setupBookColumns();
+        setupStudentColumns();
+        setupTransactionColumns();
 
         btnLoadCsv.setOnAction(e -> handleLoadCsv());
         btnConfirm.setOnAction(e -> handleConfirm());
     }
 
+    private void setupBookColumns() {
+        colBookId.setCellValueFactory(cellData -> cellData.getValue().getColumnProperty(0));
+        colTitle.setCellValueFactory(cellData -> cellData.getValue().getColumnProperty(1));
+        colIsbn13.setCellValueFactory(cellData -> cellData.getValue().getColumnProperty(2));
+        colAuthor.setCellValueFactory(cellData -> cellData.getValue().getColumnProperty(3));
+        colCopies.setCellValueFactory(cellData -> cellData.getValue().getColumnProperty(4));
+        colAvailability.setCellValueFactory(cellData -> cellData.getValue().getColumnProperty(5));
+        colPrice.setCellValueFactory(cellData -> cellData.getValue().getColumnProperty(6));
+        colBookError.setCellValueFactory(cellData -> cellData.getValue().errorProperty());
+        
+        setupActionColumn(colBookAction, "Book", new String[]{"Book ID", "Title", "ISBN", "Author", "Copies", "Availability", "Price"});
+    }
+
+    private void setupStudentColumns() {
+        colStudentId.setCellValueFactory(cellData -> cellData.getValue().getColumnProperty(0));
+        colFirstName.setCellValueFactory(cellData -> cellData.getValue().getColumnProperty(1));
+        colStudentError.setCellValueFactory(cellData -> cellData.getValue().errorProperty());
+
+        setupActionColumn(colStudentAction, "Student", new String[]{"Student ID", "First Name"});
+    }
+
+    private void setupTransactionColumns() {
+        colDate.setCellValueFactory(cellData -> cellData.getValue().getColumnProperty(0));
+        colTransBookId.setCellValueFactory(cellData -> cellData.getValue().getColumnProperty(1));
+        colTransStudentId.setCellValueFactory(cellData -> cellData.getValue().getColumnProperty(2));
+        colType.setCellValueFactory(cellData -> cellData.getValue().getColumnProperty(3));
+        colTransError.setCellValueFactory(cellData -> cellData.getValue().errorProperty());
+
+        setupActionColumn(colTransAction, "Transaction", new String[]{"Date", "Book ID", "Student ID", "Type"});
+    }
+
+    private void setupActionColumn(TableColumn<DataStore, Void> col, String type, String[] fieldNames) {
+        col.setCellFactory(param -> new TableCell<>() {
+            private final Button btn = new Button("Edit");
+            {
+                btn.setOnAction(event -> {
+                    DataStore data = getTableView().getItems().get(getIndex());
+                    editRow(data, type, fieldNames, getTableView());
+                });
+            }
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || getTableRow() == null || getTableRow().getItem() == null) {
+                    setGraphic(null);
+                } else {
+                    DataStore data = (DataStore) getTableRow().getItem();
+                    if (data.getError() != null && !data.getError().isEmpty()) {
+                        setGraphic(btn);
+                    } else {
+                        setGraphic(null);
+                    }
+                }
+            }
+        });
+    }
+
+    private void editRow(DataStore dataStore, String type, String[] fieldNames, TableView<DataStore> table) {
+        Dialog<List<String>> dialog = new Dialog<>();
+        dialog.setTitle("Edit " + type);
+        dialog.setHeaderText("Correct the errors for this " + type);
+
+        ButtonType saveButtonType = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, ButtonType.CANCEL);
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        List<TextField> fields = new ArrayList<>();
+        for (int i = 0; i < fieldNames.length; i++) {
+            TextField tf = new TextField(dataStore.getColumn(i));
+            fields.add(tf);
+            grid.add(new Label(fieldNames[i] + ":"), 0, i);
+            grid.add(tf, 1, i);
+        }
+
+        dialog.getDialogPane().setContent(grid);
+        
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == saveButtonType) {
+                List<String> results = new ArrayList<>();
+                for (TextField tf : fields) results.add(tf.getText());
+                return results;
+            }
+            return null;
+        });
+
+        Optional<List<String>> result = dialog.showAndWait();
+        result.ifPresent(newValues -> {
+            for (int i = 0; i < newValues.size(); i++) {
+                dataStore.setColumn(i, newValues.get(i));
+            }
+            // Re-validate based on type
+            if (type.equals("Book")) {
+                dataStore.setError(validateBook(dataStore));
+            } else if (type.equals("Student")) {
+                dataStore.setError(validateStudent(dataStore));
+            } else if (type.equals("Transaction")) {
+                dataStore.setError(validateTransaction(dataStore));
+            }
+            table.refresh();
+        });
+    }
+
     @FXML
     private void handleLoadCsv() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select CSV Files (books, students, transactions)");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
-        List<File> files = fileChooser.showOpenMultipleDialog(btnLoadCsv.getScene().getWindow());
+        loadedBooks = importBooks("../data/book.csv");
+        loadedStudents = importStudents("../data/student.csv");
+        loadedTransactions = importTransactions("../data/transactions.csv");
 
-        if (files == null || files.isEmpty()) return;
-
-        loadedBooks.clear();
-        loadedStudents.clear();
-        loadedTransactions.clear();
-
-        for (File file : files) {
-            String name = file.getName().toLowerCase();
-            if (name.contains("book")) {
-                loadedBooks = importBooks(file.getAbsolutePath());
-                tvBooks.setItems(FXCollections.observableArrayList(loadedBooks));
-            } else if (name.contains("student")) {
-                loadedStudents = importStudents(file.getAbsolutePath());
-                tvStudents.setItems(FXCollections.observableArrayList(loadedStudents));
-            } else if (name.contains("transaction")) {
-                loadedTransactions = importTransactions(file.getAbsolutePath());
-                tvTransactions.setItems(FXCollections.observableArrayList(loadedTransactions));
-            } else {
-                showAlert(Alert.AlertType.WARNING, "Unknown File",
-                        "Could not determine type for: " + file.getName() +
-                        "\nFile name must contain 'book', 'student', or 'transaction'.");
-            }
-        }
+        tvBooks.setItems(FXCollections.observableArrayList(loadedBooks));
+        tvStudents.setItems(FXCollections.observableArrayList(loadedStudents));
+        tvTransactions.setItems(FXCollections.observableArrayList(loadedTransactions));
 
         showAlert(Alert.AlertType.INFORMATION, "Files Loaded",
                 "Books: " + loadedBooks.size() +
@@ -119,201 +194,161 @@ public class ImportController {
             return;
         }
 
-        if (!loadedBooks.isEmpty())        FileManager.saveBooks("books.csv", loadedBooks);
-        if (!loadedStudents.isEmpty())     FileManager.saveStudents("students.csv", loadedStudents);
-        if (!loadedTransactions.isEmpty()) FileManager.saveTransactions("transactions.csv", loadedTransactions);
+        boolean hasErrors = false;
+        for (DataStore ds : loadedBooks) if (!ds.getError().isEmpty()) hasErrors = true;
+        for (DataStore ds : loadedStudents) if (!ds.getError().isEmpty()) hasErrors = true;
+        for (DataStore ds : loadedTransactions) if (!ds.getError().isEmpty()) hasErrors = true;
 
-        showAlert(Alert.AlertType.INFORMATION, "Saved",
-                "Data saved successfully to the data folder.");
+        if (hasErrors) {
+            showAlert(Alert.AlertType.ERROR, "Cannot Save", "Please fix all errors in the tables before saving.");
+            return;
+        }
+
+        List<Book> validBooks = new ArrayList<>();
+        for (DataStore ds : loadedBooks) {
+            validBooks.add(new Book(ds.getColumn(0), ds.getColumn(1), ds.getColumn(2), ds.getColumn(3), 
+                    Integer.parseInt(ds.getColumn(4)), Integer.parseInt(ds.getColumn(5)), Double.parseDouble(ds.getColumn(6))));
+        }
+
+        List<Student> validStudents = new ArrayList<>();
+        for (DataStore ds : loadedStudents) {
+            validStudents.add(new Student(ds.getColumn(0), ds.getColumn(1)));
+        }
+
+        List<Transaction> validTransactions = new ArrayList<>();
+        for (DataStore ds : loadedTransactions) {
+            validTransactions.add(new Transaction(ds.getColumn(0), ds.getColumn(1), ds.getColumn(2), Integer.parseInt(ds.getColumn(3))));
+        }
+
+        if (!validBooks.isEmpty()) FileManager.saveBooks("book.csv", validBooks);
+        if (!validStudents.isEmpty()) FileManager.saveStudents("student.csv", validStudents);
+        if (!validTransactions.isEmpty()) FileManager.saveTransactions("transactions.csv", validTransactions);
+
+        showAlert(Alert.AlertType.INFORMATION, "Saved", "Data saved successfully to the data folder.");
     }
 
-    public static List<Book> importBooks(String fileName) {
-        List<Book> books = new ArrayList<>();
-        List<String> invalidRecords = new ArrayList<>();
-
+    private List<DataStore> importBooks(String fileName) {
+        List<DataStore> books = new ArrayList<>();
         try {
             java.nio.file.Path path = java.nio.file.Paths.get(fileName);
+            if (!java.nio.file.Files.exists(path)) return books;
             java.io.BufferedReader br = new java.io.BufferedReader(new java.io.FileReader(path.toFile()));
             String line;
             int lineNumber = 0;
-
             while ((line = br.readLine()) != null) {
                 lineNumber++;
-                if (line.trim().isEmpty()) continue;
-
+                if (lineNumber == 1 || line.trim().isEmpty()) continue;
                 String[] data = line.split(",", -1);
-                if (data.length != 7) {
-                    invalidRecords.add("Line " + lineNumber + ": Wrong column count (expected 7, got " + data.length + ")");
-                    continue;
-                }
-
-                try {
-                    String bookId      = data[0].trim();
-                    String title       = data[1].trim();
-                    String isbn        = data[2].trim();
-                    String author      = data[3].trim();
-                    int    copies      = Integer.parseInt(data[4].trim());
-                    int    availability = Integer.parseInt(data[5].trim());
-                    double price       = Double.parseDouble(data[6].trim());
-
-                    List<String> errors = new ArrayList<>();
-                    if (!Validator.isValidBookID(bookId))
-                        errors.add("Invalid Book ID: " + bookId + " (format: XX##)");
-                    if (!Validator.isValidBookTitle(title))
-                        errors.add("Invalid Title: " + title + " (letters/spaces only)");
-                    if (!Validator.isValidISBN(isbn))
-                        errors.add("Invalid ISBN: " + isbn + " (must be 13 digits with valid check digit)");
-                    if (!Validator.isValidCopies(copies))
-                        errors.add("Invalid Copies: " + copies + " (must be 0-2)");
-                    if (!Validator.isValidAvailability(availability, copies))
-                        errors.add("Invalid Availability: " + availability + " (must be 0-" + copies + ")");
-                    if (!Validator.isValidPrice(price))
-                        errors.add("Invalid Price: " + price + " (must be positive)");
-
-                    if (!errors.isEmpty()) {
-                        invalidRecords.add("Line " + lineNumber + ": " + String.join("; ", errors));
-                    } else {
-                        books.add(new Book(bookId, title, isbn, author, copies, availability, price));
-                    }
-                } catch (NumberFormatException e) {
-                    invalidRecords.add("Line " + lineNumber + ": Invalid number format - " + e.getMessage());
-                }
+                List<String> rowData = new ArrayList<>();
+                for (int i = 0; i < 7; i++) rowData.add(i < data.length ? data[i].trim() : "");
+                
+                DataStore ds = new DataStore(rowData, "");
+                ds.setError(validateBook(ds));
+                books.add(ds);
             }
             br.close();
-
-            if (!invalidRecords.isEmpty()) {
-                reportInvalidRecords("Invalid Book Records", invalidRecords);
-            }
-
         } catch (Exception e) {
             System.out.println("Error importing books: " + e.getMessage());
         }
         return books;
     }
 
-    public static List<Student> importStudents(String fileName) {
-        List<Student> students = new ArrayList<>();
-        List<String> invalidRecords = new ArrayList<>();
-
+    private List<DataStore> importStudents(String fileName) {
+        List<DataStore> students = new ArrayList<>();
         try {
             java.nio.file.Path path = java.nio.file.Paths.get(fileName);
+            if (!java.nio.file.Files.exists(path)) return students;
             java.io.BufferedReader br = new java.io.BufferedReader(new java.io.FileReader(path.toFile()));
             String line;
             int lineNumber = 0;
-
             while ((line = br.readLine()) != null) {
                 lineNumber++;
-                if (line.trim().isEmpty()) continue;
-
+                if (lineNumber == 1 || line.trim().isEmpty()) continue;
                 String[] data = line.split(",", -1);
-                if (data.length != 2) {
-                    invalidRecords.add("Line " + lineNumber + ": Wrong column count (expected 2, got " + data.length + ")");
-                    continue;
-                }
-
-                try {
-                    String studentId = data[0].trim();
-                    String firstName = data[1].trim();
-
-                    List<String> errors = new ArrayList<>();
-                    if (!Validator.isValidStudentId(studentId))
-                        errors.add("Invalid Student ID: " + studentId + " (must be 8 digits)");
-                    if (!Validator.isValidName(firstName))
-                        errors.add("Invalid Name: " + firstName + " (letters only)");
-
-                    if (!errors.isEmpty()) {
-                        invalidRecords.add("Line " + lineNumber + ": " + String.join("; ", errors));
-                    } else {
-                        students.add(new Student(studentId, firstName));
-                    }
-                } catch (Exception e) {
-                    invalidRecords.add("Line " + lineNumber + ": " + e.getMessage());
-                }
+                List<String> rowData = new ArrayList<>();
+                for (int i = 0; i < 2; i++) rowData.add(i < data.length ? data[i].trim() : "");
+                
+                DataStore ds = new DataStore(rowData, "");
+                ds.setError(validateStudent(ds));
+                students.add(ds);
             }
             br.close();
-
-            if (!invalidRecords.isEmpty()) {
-                reportInvalidRecords("Invalid Student Records", invalidRecords);
-            }
-
         } catch (Exception e) {
             System.out.println("Error importing students: " + e.getMessage());
         }
         return students;
     }
 
-    public static List<Transaction> importTransactions(String fileName) {
-        List<Transaction> transactions = new ArrayList<>();
-        List<String> invalidRecords = new ArrayList<>();
-
+    private List<DataStore> importTransactions(String fileName) {
+        List<DataStore> transactions = new ArrayList<>();
         try {
             java.nio.file.Path path = java.nio.file.Paths.get(fileName);
+            if (!java.nio.file.Files.exists(path)) return transactions;
             java.io.BufferedReader br = new java.io.BufferedReader(new java.io.FileReader(path.toFile()));
             String line;
             int lineNumber = 0;
-
             while ((line = br.readLine()) != null) {
                 lineNumber++;
-                if (line.trim().isEmpty()) continue;
-
+                if (lineNumber == 1 || line.trim().isEmpty()) continue;
                 String[] data = line.split(",", -1);
-                if (data.length != 4) {
-                    invalidRecords.add("Line " + lineNumber + ": Wrong column count (expected 4, got " + data.length + ")");
-                    continue;
-                }
-
-                try {
-                    String date      = data[0].trim();
-                    String bookId    = data[1].trim();
-                    String studentId = data[2].trim();
-                    int    type      = Integer.parseInt(data[3].trim());
-
-                    List<String> errors = new ArrayList<>();
-                    if (!Validator.isValidDate(date))
-                        errors.add("Invalid Date: " + date + " (format: DD/MM/YYYY)");
-                    if (!Validator.isValidBookID(bookId))
-                        errors.add("Invalid Book ID: " + bookId);
-                    if (!Validator.isValidStudentId(studentId))
-                        errors.add("Invalid Student ID: " + studentId);
-                    if (type != 1 && type != 2)
-                        errors.add("Invalid Type: " + type + " (must be 1=issued or 2=returned)");
-
-                    if (!errors.isEmpty()) {
-                        invalidRecords.add("Line " + lineNumber + ": " + String.join("; ", errors));
-                    } else {
-                        transactions.add(new Transaction(date, bookId, studentId, type));
-                    }
-                } catch (NumberFormatException e) {
-                    invalidRecords.add("Line " + lineNumber + ": Invalid number format - " + e.getMessage());
-                }
+                List<String> rowData = new ArrayList<>();
+                for (int i = 0; i < 4; i++) rowData.add(i < data.length ? data[i].trim() : "");
+                
+                DataStore ds = new DataStore(rowData, "");
+                ds.setError(validateTransaction(ds));
+                transactions.add(ds);
             }
             br.close();
-
-            if (!invalidRecords.isEmpty()) {
-                reportInvalidRecords("Invalid Transaction Records", invalidRecords);
-            }
-
         } catch (Exception e) {
             System.out.println("Error importing transactions: " + e.getMessage());
         }
         return transactions;
     }
 
-    private static void reportInvalidRecords(String title, List<String> records) {
-        StringBuilder message = new StringBuilder();
-        message.append("Found ").append(records.size()).append(" invalid record(s):\n\n");
-        for (int i = 0; i < Math.min(records.size(), 10); i++) {
-            message.append(records.get(i)).append("\n");
+    private String validateBook(DataStore ds) {
+        List<String> errors = new ArrayList<>();
+        if (!Validator.isValidBookID(ds.getColumn(0))) errors.add("Invalid ID");
+        if (!Validator.isValidBookTitle(ds.getColumn(1))) errors.add("Invalid Title");
+        if (!Validator.isValidISBN(ds.getColumn(2))) errors.add("Invalid ISBN");
+        
+        try {
+            int copies = Integer.parseInt(ds.getColumn(4));
+            if (!Validator.isValidCopies(copies)) errors.add("Invalid Copies");
+            
+            int avail = Integer.parseInt(ds.getColumn(5));
+            if (!Validator.isValidAvailability(avail, copies)) errors.add("Invalid Availability");
+        } catch (NumberFormatException e) {
+            errors.add("Copies/Availability must be numbers");
         }
-        if (records.size() > 10) {
-            message.append("\n... and ").append(records.size() - 10).append(" more");
+        
+        try {
+            double price = Double.parseDouble(ds.getColumn(6));
+            if (!Validator.isValidPrice(price)) errors.add("Invalid Price");
+        } catch (NumberFormatException e) {
+            errors.add("Price must be a number");
         }
+        return String.join("; ", errors);
+    }
 
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(title);
-        alert.setHeaderText("Data Validation Issues");
-        alert.setContentText(message.toString());
-        alert.showAndWait();
+    private String validateStudent(DataStore ds) {
+        List<String> errors = new ArrayList<>();
+        if (!Validator.isValidStudentId(ds.getColumn(0))) errors.add("Invalid ID");
+        if (!Validator.isValidName(ds.getColumn(1))) errors.add("Invalid Name");
+        return String.join("; ", errors);
+    }
+
+    private String validateTransaction(DataStore ds) {
+        List<String> errors = new ArrayList<>();
+        if (!Validator.isValidDate(ds.getColumn(0))) errors.add("Invalid Date");
+        if (!Validator.isValidBookID(ds.getColumn(1))) errors.add("Invalid Book ID");
+        if (!Validator.isValidStudentId(ds.getColumn(2))) errors.add("Invalid Student ID");
+        try {
+            int type = Integer.parseInt(ds.getColumn(3));
+            if (type != 1 && type != 2) errors.add("Type must be 1 or 2");
+        } catch (NumberFormatException e) {
+            errors.add("Type must be a number");
+        }
+        return String.join("; ", errors);
     }
 
     private void showAlert(Alert.AlertType type, String title, String message) {

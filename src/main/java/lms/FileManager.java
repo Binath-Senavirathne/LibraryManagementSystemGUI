@@ -6,20 +6,18 @@ import java.util.*;
 
 public class FileManager {
 
-    private static final String DATA_FOLDER = System.getProperty("user.dir") + java.io.File.separator + "data" + java.io.File.separator;
-
-    private static void ensureDataDir() {
-        java.io.File dir = new java.io.File(DATA_FOLDER);
-        if (!dir.exists()) dir.mkdirs();
-    }
+    private static final String DATA_FOLDER = "../data/";
 
     public static List<Book> loadBooks(String fileName) {
         List<Book> books = new ArrayList<>();
         Path path = Paths.get(DATA_FOLDER + fileName);
         try (BufferedReader br = new BufferedReader(new FileReader(path.toFile()))) {
             String line;
+            boolean firstLine = true;
             while ((line = br.readLine()) != null) {
-                if (line.trim().isEmpty()) continue;
+                if (firstLine) { firstLine = false; continue; }
+                if (line.trim().isEmpty())
+                    continue;
                 String[] data = line.split(",", -1);
                 if (data.length != 7) {
                     System.out.println("Skipping invalid book record (wrong column count): " + line);
@@ -50,8 +48,11 @@ public class FileManager {
         Path path = Paths.get(DATA_FOLDER + fileName);
         try (BufferedReader br = new BufferedReader(new FileReader(path.toFile()))) {
             String line;
+            boolean firstLine = true;
             while ((line = br.readLine()) != null) {
-                if (line.trim().isEmpty()) continue;
+                if (firstLine) { firstLine = false; continue; }
+                if (line.trim().isEmpty())
+                    continue;
                 String[] data = line.split(",", -1);
                 if (data.length != 2) {
                     System.out.println("Skipping invalid student record: " + line);
@@ -67,7 +68,7 @@ public class FileManager {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Error loading books file: " + e.getMessage());
+            System.out.println("Error loading students file: " + e.getMessage());
         }
         return students;
     }
@@ -77,8 +78,11 @@ public class FileManager {
         Path path = Paths.get(DATA_FOLDER + fileName);
         try (BufferedReader br = new BufferedReader(new FileReader(path.toFile()))) {
             String line;
+            boolean firstLine = true;
             while ((line = br.readLine()) != null) {
-                if (line.trim().isEmpty()) continue;
+                if (firstLine) { firstLine = false; continue; }
+                if (line.trim().isEmpty())
+                    continue;
                 String[] data = line.split(",", -1);
                 if (data.length != 4) {
                     System.out.println("Skipping invalid transaction record: " + line);
@@ -96,36 +100,39 @@ public class FileManager {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Error loading books file: " + e.getMessage());
+            System.out.println("Error loading transactions file: " + e.getMessage());
         }
         return transactions;
     }
 
     public static void saveBooks(String fileName, List<Book> books) {
-        ensureDataDir();
         Path path = Paths.get(DATA_FOLDER + fileName);
         try (PrintWriter pw = new PrintWriter(new FileWriter(path.toFile()))) {
-            for (Book b : books) pw.println(b.toCsv());
+            pw.println("book_id,title,isbn13,author,copies,availability,price");
+            for (Book b : books)
+                pw.println(b.toCsv());
         } catch (Exception e) {
             System.out.println("Error saving books: " + e.getMessage());
         }
     }
 
     public static void saveStudents(String fileName, List<Student> students) {
-        ensureDataDir();
         Path path = Paths.get(DATA_FOLDER + fileName);
         try (PrintWriter pw = new PrintWriter(new FileWriter(path.toFile()))) {
-            for (Student s : students) pw.println(s.toCsv());
+            pw.println("student_id,first_name");
+            for (Student s : students)
+                pw.println(s.toCsv());
         } catch (Exception e) {
             System.out.println("Error saving students: " + e.getMessage());
         }
     }
 
     public static void saveTransactions(String fileName, List<Transaction> transactions) {
-        ensureDataDir();
         Path path = Paths.get(DATA_FOLDER + fileName);
         try (PrintWriter pw = new PrintWriter(new FileWriter(path.toFile()))) {
-            for (Transaction t : transactions) pw.println(t.toCsv());
+            pw.println("date,book_id,student_id,type");
+            for (Transaction t : transactions)
+                pw.println(t.toCsv());
         } catch (Exception e) {
             System.out.println("Error saving transactions: " + e.getMessage());
         }

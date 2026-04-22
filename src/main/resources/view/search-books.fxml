@@ -5,14 +5,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SearchBooksController">
+<AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SearchBooksController">
    <children>
-      <Label layoutX="319.0" layoutY="47.0" text="Search Books" textFill="#170886">
+      <Label layoutX="430.0" layoutY="47.0" text="Search Books" textFill="#170886">
          <font>
             <Font name="Arial Rounded MT Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="43.0" layoutY="94.0" prefHeight="20.0" prefWidth="718.0" text="Search for books by title. Use a wildcard (*) at the end to match prefixes, e.g. 'The*' finds all titles starting with 'The'. ">
+      <Label layoutX="43.0" layoutY="94.0" prefHeight="20.0" prefWidth="918.0" text="Search for books by title. Use a wildcard (*) at the end to match prefixes, e.g. 'The*' finds all titles starting with 'The'. ">
          <font>
             <Font size="14.0" />
          </font>
@@ -56,13 +56,13 @@
             </Button>
          </children>
       </HBox>
-      <TableView fx:id="searchResultsTableView" layoutX="43.0" layoutY="204.0" prefHeight="278.0" prefWidth="718.0">
+      <TableView fx:id="searchResultsTableView" layoutX="43.0" layoutY="204.0" prefHeight="278.0" prefWidth="918.0">
         <columns>
-          <TableColumn fx:id="bookIdColumn" prefWidth="75.0" text="Book_ID" />
-          <TableColumn fx:id="titleColumn" prefWidth="225.60003662109375" text="Name" />
-            <TableColumn fx:id="authorColumn" prefWidth="160.79998779296875" text="Author" />
-            <TableColumn fx:id="isbnColumn" prefWidth="147.99993896484375" text="ISBN " />
-            <TableColumn fx:id="availabilityColumn" prefWidth="109.5999755859375" text="Availability Count" />
+          <TableColumn fx:id="bookIdColumn" prefWidth="100.0" text="Book_ID" />
+          <TableColumn fx:id="titleColumn" prefWidth="300.0" text="Name" />
+            <TableColumn fx:id="authorColumn" prefWidth="200.0" text="Author" />
+            <TableColumn fx:id="isbnColumn" prefWidth="168.0" text="ISBN " />
+            <TableColumn fx:id="availabilityColumn" prefWidth="150.0" text="Availability Count" />
         </columns>
       </TableView>
    </children>

@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.IssuedReportController">
+<AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.IssuedReportController">
    <children>
-      <Label layoutX="309.0" layoutY="39.0" text="Books Issued Report" textAlignment="CENTER" textFill="#13289e">
+      <Label layoutX="409.0" layoutY="39.0" text="Books Issued Report" textAlignment="CENTER" textFill="#13289e">
          <font>
             <Font name="Arial Rounded MT Bold" size="18.0" />
          </font>
@@ -17,7 +17,7 @@
             <Font name="Arial Rounded MT Bold" size="14.0" />
          </font>
       </Label>
-      <HBox layoutX="108.0" layoutY="111.0" prefHeight="34.0" prefWidth="583.0">
+      <HBox layoutX="208.0" layoutY="111.0" prefHeight="34.0" prefWidth="583.0">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -46,11 +46,11 @@
             </Button>
          </children>
       </HBox>
-      <TableView fx:id="reportTableView" layoutX="51.0" layoutY="157.0" prefHeight="302.0" prefWidth="691.0">
+      <TableView fx:id="reportTableView" layoutX="54.0" layoutY="157.0" prefHeight="302.0" prefWidth="891.0">
         <columns>
-          <TableColumn fx:id="dateColumn" prefWidth="175.2000732421875" text="Date" />
-          <TableColumn fx:id="bookIdColumn" prefWidth="171.199951171875" text="Book_ID" />
-            <TableColumn fx:id="studentIdColumn" prefWidth="163.20001220703125" text="Student_ID" />
+          <TableColumn fx:id="dateColumn" prefWidth="297.0" text="Date" />
+          <TableColumn fx:id="bookIdColumn" prefWidth="297.0" text="Book_ID" />
+            <TableColumn fx:id="studentIdColumn" prefWidth="297.0" text="Student_ID" />
         </columns>
       </TableView>
    </children>

@@ -4,18 +4,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AverageCostController">
+<AnchorPane prefHeight="250.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AverageCostController">
    <children>
-      <Label layoutX="316.0" layoutY="34.0" text="Average Book Cost" textFill="#171499">
+      <Label layoutX="416.0" layoutY="34.0" text="Average Book Cost" textFill="#171499">
          <font>
             <Font name="Arial Rounded MT Bold" size="18.0" />
          </font>
       </Label>
-      <GridPane layoutX="65.0" layoutY="76.0" prefHeight="104.0" prefWidth="400.0">
+      <GridPane layoutX="300.0" layoutY="76.0" prefHeight="104.0" prefWidth="400.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="170.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" prefWidth="35.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="195.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="31.6" minHeight="10.0" prefHeight="28.4" vgrow="SOMETIMES" />
@@ -32,32 +31,21 @@
             <Label text="Average Cost" GridPane.rowIndex="2">
                <font><Font size="14.0" /></font>
             </Label>
-            <Label text="-" textAlignment="CENTER" GridPane.columnIndex="1">
-               <font><Font size="18.0" /></font>
+            <Label fx:id="lblTotalBooks" text="-" textAlignment="CENTER" GridPane.columnIndex="1">
+               <font><Font size="14.0" /></font>
             </Label>
-            <Label text="-" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <font><Font size="18.0" /></font>
+            <Label fx:id="lblTotalPrice" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font><Font size="14.0" /></font>
             </Label>
-            <Label text="-" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <font><Font size="18.0" /></font>
+            <Label fx:id="lblAverageCost" text="-" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font><Font size="14.0" /></font>
             </Label>
          </children>
       </GridPane>
-      <Button fx:id="btnCalculate" layoutX="590.0" layoutY="144.0" mnemonicParsing="false" style="-fx-background-color: #0f1a99;" text="Calculate Average Cost" textFill="WHITE">
+      <Button fx:id="btnCalculate" layoutX="425.0" layoutY="200.0" mnemonicParsing="false" style="-fx-background-color: #0f1a99;" text="Calculate Average Cost" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <TableView fx:id="booksTableView" layoutX="65.0" layoutY="199.0" prefHeight="265.0" prefWidth="665.0">
-         <columns>
-            <TableColumn prefWidth="80.0" text="Book ID" />
-            <TableColumn prefWidth="200.0" text="Title" />
-            <TableColumn prefWidth="150.0" text="Author" />
-            <TableColumn prefWidth="130.0" text="ISBN" />
-            <TableColumn prefWidth="60.0" text="Copies" />
-            <TableColumn prefWidth="75.0" text="Available" />
-            <TableColumn prefWidth="80.0" text="Price (£)" />
-         </columns>
-      </TableView>
    </children>
 </AnchorPane>
