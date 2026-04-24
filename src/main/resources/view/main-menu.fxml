@@ -6,11 +6,12 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
     <top>
-        <AnchorPane style="-fx-background-color: #3f73c1;">
-            <Label layoutX="384.0" layoutY="-1.0" prefHeight="29.0" prefWidth="232.0" text="Library Management System" textFill="WHITE">
+        <AnchorPane prefHeight="35.0" style="-fx-background-color: #3f73c1;">
+            <Label layoutX="384.0" layoutY="3.0" prefHeight="29.0" prefWidth="232.0" text="Library Management System" textFill="WHITE">
             <font>
                <Font size="18.0" />
             </font></Label>
+            <Button fx:id="exitButton" mnemonicParsing="false" style="-fx-background-color: #acabab; -fx-text-fill: black;" text="Exit" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0" />
         </AnchorPane>
     </top>
     <center>

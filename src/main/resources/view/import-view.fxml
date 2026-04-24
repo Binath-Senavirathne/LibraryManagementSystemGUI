@@ -49,9 +49,9 @@
                             <TableColumn fx:id="colAuthor" prefWidth="100.0" text="author" />
                             <TableColumn fx:id="colCopies" prefWidth="50.0" text="copies" />
                             <TableColumn fx:id="colAvailability" prefWidth="80.00003051757812" text="availability" />
-                            <TableColumn fx:id="colPrice" prefWidth="30.39996337890625" text="price" />
-                            <TableColumn fx:id="colBookError" prefWidth="300.0" text="Error Details" />
-                            <TableColumn fx:id="colBookAction" prefWidth="80.0" text="Action" />
+                            <TableColumn fx:id="colPrice" prefWidth="94.4000244140625" text="price" />
+                            <TableColumn fx:id="colBookError" prefWidth="202.0" text="Error Details" />
+                            <TableColumn fx:id="colBookAction" prefWidth="114.0" text="Action" />
                           </columns>
                         </TableView>
                      </children>

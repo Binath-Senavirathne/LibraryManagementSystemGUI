@@ -84,7 +84,7 @@ public class IssuedReportController {
         } else {
             reportTableView.setItems(FXCollections.observableArrayList(issuedBooks));
             showAlert(Alert.AlertType.INFORMATION, "Report Generated",
-                    "Found " + issuedBooks.size() + " book(s) issued on " + dateInput);
+                    "Found" + issuedBooks.size() + " book(s) : issued on " + dateInput);
         }
     }
 

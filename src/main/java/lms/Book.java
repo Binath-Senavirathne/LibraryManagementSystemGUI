@@ -80,7 +80,7 @@ public class Book {
     }
 
     public String toCsv() {
-        return bookId + "," + title + "," + isbn + "," + author + "," + copies + "," + availability + "," + price;
+        return bookId + "," + title + "," + isbn + "," + author + "," + copies + "," + availability + "," + String.format("%.2f", price);
     }
 
     @Override

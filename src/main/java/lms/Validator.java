@@ -50,6 +50,10 @@ public class Validator {
 
     public static boolean isValidDate(String dateStr) {
 
+        if (dateStr == null) {
+            return false;
+        }
+
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDate.parse(dateStr, formatter);

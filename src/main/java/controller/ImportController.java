@@ -248,7 +248,7 @@ public class ImportController {
             }
             br.close();
         } catch (Exception e) {
-            System.out.println("Error importing books: " + e.getMessage());
+            System.out.println("Error on importing books: " + e.getMessage());
         }
         return books;
     }
@@ -274,7 +274,7 @@ public class ImportController {
             }
             br.close();
         } catch (Exception e) {
-            System.out.println("Error importing students: " + e.getMessage());
+            System.out.println("Error on importing students: " + e.getMessage());
         }
         return students;
     }
@@ -300,7 +300,7 @@ public class ImportController {
             }
             br.close();
         } catch (Exception e) {
-            System.out.println("Error importing transactions: " + e.getMessage());
+            System.out.println("Error on importing transactions: " + e.getMessage());
         }
         return transactions;
     }

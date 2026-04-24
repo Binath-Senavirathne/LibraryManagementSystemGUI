@@ -33,7 +33,7 @@ public class AverageCostController {
         if (books.isEmpty()) {
             showAlert("No Data", "No books found in book.csv. Load the Data file");
             lblTotalBooks.setText("0");
-            lblTotalPrice.setText("0.00");
+            lblTotalPrice.setText("Rs. 0.00");
             lblAverageCost.setText("N/A");
             return;
         }
@@ -48,8 +48,8 @@ public class AverageCostController {
         double averageCost = totalCopies > 0 ? totalPrice / totalCopies : 0.0;
 
         lblTotalBooks.setText(String.valueOf(totalCopies));
-        lblTotalPrice.setText(String.format("%.2f", totalPrice));
-        lblAverageCost.setText(String.format("%.2f", averageCost));
+        lblTotalPrice.setText(String.format("Rs. %.2f", totalPrice));
+        lblAverageCost.setText(String.format("Rs. %.2f", averageCost));
     }
 
     private void showAlert(String title, String message) {

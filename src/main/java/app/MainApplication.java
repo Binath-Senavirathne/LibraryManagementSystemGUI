@@ -1,8 +1,10 @@
 package app;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class MainApplication extends Application {
@@ -11,6 +13,15 @@ public class MainApplication extends Application {
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/main-menu.fxml"));
         Scene scene = new Scene(loader.load(), 1000, 600);
+        
+        Button exitButton = (Button) scene.lookup("#exitButton");
+        if (exitButton != null) {
+            exitButton.setOnAction(e -> {
+                Platform.exit();
+                System.exit(0);
+            });
+        }
+        
         primaryStage.setTitle("Java Library Viewer");
         primaryStage.setScene(scene);
         primaryStage.setResizable(true);
